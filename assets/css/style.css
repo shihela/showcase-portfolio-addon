@@ -82,7 +82,7 @@
 
 .iframe-container.desktop iframe {
     width: 100%;
-    height: 100%;
+    max-height: calc(80vh - 50px);
 }
 
 .iframe-container.tablet iframe {
@@ -95,46 +95,16 @@
     max-height: calc(80vh - 50px);
 }
 
-/* Showcase Button Styles */
-.showcase-button {
-    font-size: 16px;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: #0073e6;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-align: center;
-    display: inline-block;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-.showcase-button:hover {
-    background-color: #005bb5;
-    opacity: 0.9;
-}
-
-.showcase-button-container {
-    text-align: center; /* Default to center */
-    display: inline-block; /* Optional for block-level button */
-    width: 100%;
-}
-.showcase-button {
-    /* Optional: Apply some padding/margin if needed */
-    margin: 0 auto;
-}
 
 .showcase-open-original {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 10px;
+    left: 10px;
     background: #ffffff;
     color: #333;
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 7px;
+    font-weight: 500;
     font-size: 14px;
     text-decoration: none;
     z-index: 9999;
