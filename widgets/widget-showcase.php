@@ -31,38 +31,50 @@ class Widget_Showcase extends Widget_Base {
     
 
     // 5. Widget Controls
-    protected function _register_controls() {
-        // Button Settings Section
+    protected function register_controls() {
+
         $this->start_controls_section(
-            'button_section',
+            'content_section',
             [
-                'label' => __('Button Settings', 'plugin-name'),
-                'tab' => Controls_Manager::TAB_CONTENT,
+                'label' => esc_html__( 'Showcase Settings', 'showcase-portfolio-addon' ),
+                'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
     
         $this->add_control(
             'button_text',
             [
-                'label' => __('Button Text', 'plugin-name'),
-                'type' => Controls_Manager::TEXT,
-                'default' => __('View Showcase', 'plugin-name'),
+                'label' => esc_html__( 'Button Text', 'showcase-portfolio-addon' ),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => esc_html__( 'Showcase', 'showcase-portfolio-addon' ),
+                'placeholder' => esc_html__( 'Enter button text', 'showcase-portfolio-addon' ),
+                'label_block' => true,
+                'dynamic' => [ 'active' => true ], // ✅ Dynamic tag support
+            ]
+        );
+    
+        $this->add_control(
+            'button_icon',
+            [
+                'label' => esc_html__( 'Button Icon', 'showcase-portfolio-addon' ),
+                'type' => \Elementor\Controls_Manager::ICONS,
+                'label_block' => true,
             ]
         );
     
         $this->add_control(
             'button_url',
             [
-                'label' => __('Showcase URL', 'plugin-name'),
-                'type' => Controls_Manager::URL,
-                'placeholder' => __('https://your-showcase-url.com', 'plugin-name'),
-                'default' => [
-                    'url' => '#',
-                ],
+                'label' => esc_html__( 'Showcase URL', 'showcase-portfolio-addon' ),
+                'type' => \Elementor\Controls_Manager::URL,
+                'placeholder' => esc_html__( 'https://your-showcase-url.com', 'showcase-portfolio-addon' ),
+                'label_block' => true,
+                'dynamic' => [ 'active' => true ], // ✅ Dynamic tag support
             ]
         );
     
-        $this->end_controls_section(); // End Content Section
+        $this->end_controls_section();
+    
     
         // Style Tab: Button Style Section
         $this->start_controls_section(
@@ -241,49 +253,56 @@ class Widget_Showcase extends Widget_Base {
     }
     
     // In the render() method, modify the structure:
-    protected function render() {
-        $settings = $this->get_settings_for_display();
-
-        // Ensure the URL is properly escaped
-        $iframe_url = ! empty( $settings['button_url']['url'] ) ? esc_url( $settings['button_url']['url'] ) : '';
-        ?>
-
-        <!-- Showcase Button Container -->
-        <div class="showcase-button-container">
-            <button class="showcase-button" id="openPopup">
-                <?php if ( ! empty( $settings['button_icon']['value'] ) ) : ?>
-                    <?php Icons_Manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] ); ?>
-                <?php endif; ?>
-                <?php echo esc_html( $settings['button_text'] ); ?>
-            </button>
-        </div>
+        protected function render() {
+            $settings = $this->get_settings_for_display();
         
+            $iframe_url = ! empty( $settings['button_url']['url'] ) ? esc_url( $settings['button_url']['url'] ) : '';
+            $button_text = ! empty( $settings['button_text'] ) ? $settings['button_text'] : 'Showcase';
         
-        <!-- Pop-Up HTML -->
-        <div id="showcase" class="popup" style="display: none;">
-            <div class="popup-content">
-                <span class="close" id="closePopup">&times;</span>
-                <!-- ✅ Tambahkan Tombol "Live Preview" di sini -->
-                    <a href="<?php echo esc_url( $iframe_url ); ?>" target="_blank" class="showcase-open-original" title="Live Preview">
-                        Live Preview
-                    </a>
-                <div class="frame-options">
-                    <button class="frame-option" data-view="desktop" title="Desktop">
-                        <img src="https://img.icons8.com/ios-filled/24/FFFFFF/monitor.png" alt="Desktop">
-                    </button>
-                    <button class="frame-option" data-view="tablet" title="Tablet">
-                        <img src="https://img.icons8.com/ios-filled/24/FFFFFF/ipad.png" alt="Tablet">
-                    </button>
-                    <button class="frame-option" data-view="phone" title="Phone">
-                        <img src="https://img.icons8.com/ios-filled/24/FFFFFF/iphone.png" alt="Phone">
-                    </button>
-                </div>
-                <div class="iframe-container desktop">
-                    <iframe id="demoIframe" src="<?php echo $iframe_url; ?>" frameborder="0" sandbox="allow-same-origin allow-scripts allow-popups"></iframe>
+            ?>
+            <!-- Tombol di luar -->
+            <div class="showcase-button-container">
+                <button class="showcase-button" id="openPopup">
+                    <?php if ( ! empty( $settings['button_icon']['value'] ) ) : ?>
+                        <?php \Elementor\Icons_Manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] ); ?>
+                    <?php endif; ?>
+                    <?php echo esc_html( $button_text ); ?>
+                </button>
+            </div>
+        
+            <!-- Pop-up Showcase -->
+            <div id="showcase" class="popup" style="display: none;">
+                <div class="popup-content">
+                    <!-- Tombol Live Preview -->
+                    <?php if ( ! empty( $iframe_url ) ) : ?>
+                        <a href="<?php echo $iframe_url; ?>" target="_blank" class="showcase-open-original" title="Live Preview">
+                            Live Preview
+                        </a>
+                    <?php endif; ?>
+        
+                    <!-- Tombol Close -->
+                    <span class="close" id="closePopup">&times;</span>
+        
+                    <!-- Tombol Mode Tampilan -->
+                    <div class="frame-options">
+                        <button class="frame-option" data-view="desktop" title="Desktop">
+                            <img src="https://img.icons8.com/ios-filled/24/FFFFFF/monitor.png" alt="Desktop">
+                        </button>
+                        <button class="frame-option" data-view="tablet" title="Tablet">
+                            <img src="https://img.icons8.com/ios-filled/24/FFFFFF/ipad.png" alt="Tablet">
+                        </button>
+                        <button class="frame-option" data-view="phone" title="Phone">
+                            <img src="https://img.icons8.com/ios-filled/24/FFFFFF/iphone.png" alt="Phone">
+                        </button>
+                    </div>
+        
+                    <!-- Iframe -->
+                    <div class="iframe-container desktop">
+                        <iframe id="demoIframe" src="<?php echo $iframe_url; ?>" frameborder="0" sandbox="allow-same-origin allow-scripts allow-popups"></iframe>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <?php
+            <?php
+        }
+        
     }
-}

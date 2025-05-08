@@ -4,7 +4,7 @@
  * Plugin Name: Showcase Portfolio Addon
  * Plugin URI: https://yukdigitalz.com/showcase
  * Description: Pop-up showcase widget for Elementor with responsive view options.
- * Version: 1.1
+ * Version: 1.2
  * Author: Shihela
  * Author URI: https://github.com/shihela
  * Text Domain: showcase-portfolio-addon
