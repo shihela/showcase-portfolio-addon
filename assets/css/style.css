@@ -125,3 +125,23 @@
     /* Optional: Apply some padding/margin if needed */
     margin: 0 auto;
 }
+
+.showcase-open-original {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #ffffff;
+    color: #333;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    z-index: 9999;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
+}
+
+.showcase-open-original:hover {
+    background: #f0f0f0;
+}

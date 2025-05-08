@@ -257,11 +257,16 @@ class Widget_Showcase extends Widget_Base {
                 <?php echo esc_html( $settings['button_text'] ); ?>
             </button>
         </div>
-
+        
+        
         <!-- Pop-Up HTML -->
         <div id="showcase" class="popup" style="display: none;">
             <div class="popup-content">
                 <span class="close" id="closePopup">&times;</span>
+                <!-- ✅ Tambahkan Tombol "Live Preview" di sini -->
+                    <a href="<?php echo esc_url( $iframe_url ); ?>" target="_blank" class="showcase-open-original" title="Live Preview">
+                        Live Preview
+                    </a>
                 <div class="frame-options">
                     <button class="frame-option" data-view="desktop" title="Desktop">
                         <img src="https://img.icons8.com/ios-filled/24/FFFFFF/monitor.png" alt="Desktop">
